@@ -4,6 +4,7 @@
 ENV['SSL_CERT_FILE'] = Gem.loaded_specs['google-api-client'].full_gem_path+'/lib/cacerts.pem'
 
 require 'google/apis/gmail_v1'
+require 'google/apis/pubsub_v1'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
 
@@ -14,7 +15,9 @@ APPLICATION_NAME = 'Gmail API Ruby Quickstart'
 CLIENT_SECRETS_PATH = 'client_secret.json'
 CREDENTIALS_PATH = File.join(Dir.home, '.credentials',
                              "gmail-ruby-quickstart.yaml")
-SCOPE = Google::Apis::GmailV1::AUTH_GMAIL_MODIFY
+SCOPE = [Google::Apis::GmailV1::AUTH_GMAIL_MODIFY,Google::Apis::PubsubV1::AUTH_PUBSUB]
+TOPIC = 'projects/gmail-slack-notifier-1257/topics/push'
+SUBSCRIPTION = 'projects/gmail-slack-notifier-1257/subscriptions/push'
 
 ##
 # Ensure valid credentials, either by restoring from the saved credentials
@@ -48,11 +51,30 @@ service = Google::Apis::GmailV1::GmailService.new
 service.client_options.application_name = APPLICATION_NAME
 service.authorization = authorize
 
+pubsub = Google::Apis::PubsubV1::PubsubService.new
+pubsub.authorization = authorize
+
 watch_request = Google::Apis::GmailV1::WatchRequest.new
-watch_request.topic_name = 'projects/gmail-slack-notifier-1257/topics/push'
+watch_request.topic_name = TOPIC
 
 service.watch_user('me', watch_request) do |request|
   while true
-    request.update! unless Time.at(request.expiration.to_i / 1000) > Time.now
+    # request.update! unless Time.at(request.expiration.to_i / 1000) > Time.now
+
+    # Pull messages
+    response = pubsub.pull_subscription(SUBSCRIPTION, Google::Apis::PubsubV1::PullRequest.new)
+    response.received_messages.each do |received_message|
+      data = received_message.message.data
+      puts "Received: #{data}"
+    end
+
+    # Acknowledge receipt
+    ack_ids = response.received_messages.map{ |msg| msg.ack_id }
+    pubsub.acknowledge_subscription(SUBSCRIPTION, Google::Apis::PubsubV1::AcknowledgeRequest.new(ack_ids: ack_ids))
+
+    puts 'Loop complete'
+
+    # Wait
+    sleep 3
   end
 end
