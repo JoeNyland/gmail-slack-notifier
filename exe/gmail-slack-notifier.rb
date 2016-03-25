@@ -18,7 +18,7 @@ SCOPE = Google::Apis::GmailV1::AUTH_GMAIL_MODIFY
 
 ##
 # Ensure valid credentials, either by restoring from the saved credentials
-# files or intitiating an OAuth2 authorization. If authorization is required,
+# files or initialing an OAuth2 authorization. If authorization is required,
 # the user's default browser will be launched to approve the request.
 #
 # @return [Google::Auth::UserRefreshCredentials] OAuth2 credentials
@@ -44,11 +44,15 @@ def authorize
   credentials
 end
 
-# Initialize the API
 service = Google::Apis::GmailV1::GmailService.new
 service.client_options.application_name = APPLICATION_NAME
 service.authorization = authorize
 
 watch_request = Google::Apis::GmailV1::WatchRequest.new
-watch_request.topic_name= 'projects/gmail-slack-notifier-1257/topics/push'
-service.watch_user('me', watch_request)
+watch_request.topic_name = 'projects/gmail-slack-notifier-1257/topics/push'
+
+service.watch_user('me', watch_request) do |request|
+  while true
+    request.update! unless Time.at(request.expiration.to_i / 1000) > Time.now
+  end
+end
