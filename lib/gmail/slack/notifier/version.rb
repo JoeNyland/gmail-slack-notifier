@@ -1,6 +1,6 @@
 module Gmail
   module Slack
-    module Notifier
+    class Notifier
       VERSION = "0.1.0"
     end
   end
