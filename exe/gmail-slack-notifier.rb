@@ -2,4 +2,4 @@
 
 require 'gmail/slack/notifier'
 
-Gmail::Slack::Notifier.new.run!
+Gmail::Slack::Notifier.new.run
