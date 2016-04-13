@@ -3,6 +3,7 @@
 require 'optparse'
 require 'gmail/slack/notifier'
 
+# Parse arguments
 options = {}
 ARGV << '-h' if ARGV.empty? # Show the help message if no command line arguments are provided
 OptionParser.new do |opts|
@@ -20,6 +21,7 @@ OptionParser.new do |opts|
   end
 end.parse!
 
+# Build a notifier object
 notifier = Gmail::Slack::Notifier.new(
   gmail: {
       email: options[:gmail_email],
@@ -31,6 +33,7 @@ notifier = Gmail::Slack::Notifier.new(
   }
 )
 
+# The main mail detection and notification loop
 # Gmail.connect!('email','password') do |client|
 #
 #   # We start monitoring for emails from now onwards
