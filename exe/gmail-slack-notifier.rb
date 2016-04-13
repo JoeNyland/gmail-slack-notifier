@@ -1,8 +1,35 @@
 #!/usr/bin/env ruby
 
+require 'optparse'
 require 'gmail/slack/notifier'
 
-# Gmail::Slack::Notifier.new.run
+options = {}
+ARGV << '-h' if ARGV.empty? # Show the help message if no command line arguments are provided
+OptionParser.new do |opts|
+  opts.on('-w', '--slack-webhook-url SLACK_WEBHOOK_URL', 'Slack webhook URL') do |v|
+    options[:slack_webhook_url] = v
+  end
+  opts.on('-t', '--slack-target-channel SLACK_TARGET_CHANNEL', 'Slack target channel') do |v|
+    options[:slack_target_channel] = v
+  end
+  opts.on('-e', '--gmail-email GMAIL_EMAIL', 'Email address for the Gmail account to login to') do |v|
+    options[:gmail_email] = v
+  end
+  opts.on('-p', '--gmail-password GMAIL_PASSWORD', 'Gmail password') do |v|
+    options[:gmail_password] = v
+  end
+end.parse!
+
+notifier = Gmail::Slack::Notifier.new(
+  gmail: {
+      email: options[:gmail_email],
+      password: options[:gmail_password]
+  },
+  slack: {
+      webhook_url: options[:slack_webhook_url],
+      channel: options[:slack_target_channel]
+  }
+)
 
 # Gmail.connect!('email','password') do |client|
 #
@@ -42,13 +69,13 @@ require 'gmail/slack/notifier'
 #   end
 #
 # end
-
-test_email = {
-  date:    Time.now,
-  from:    'foo.bar@example.com',
-  subject: 'This is a test email from Foo Bar',
-  excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-}
-
-notifier = Gmail::Slack::Notifier::SlackClient.new WEBHOOK_URL
-notifier.ping(username: TARGET_SLACK_USER,text: to_slack_message(test_email))
+#
+# test_email = {
+#   date:    Time.now,
+#   from:    'foo.bar@example.com',
+#   subject: 'This is a test email from Foo Bar',
+#   excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+# }
+#
+# notifier = Gmail::Slack::Notifier::SlackClient.new "https://hooks.slack.com/services/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"
+# notifier.ping(username: '@joenyland',text: to_slack_message(test_email))

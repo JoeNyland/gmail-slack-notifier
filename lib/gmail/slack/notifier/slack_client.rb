@@ -5,6 +5,11 @@ module Gmail
     class Notifier
       class SlackClient < ::Slack::Notifier
 
+        def initialize(params)
+          fail if params[:webhook_url].nil?
+          super params[:webhook_url], channel: params[:channel].nil? ? nil : params[:channel]
+        end
+
         # Takes a hash of data and formats it as a string, ready for sending to Slack
         #
         # Example input hash:

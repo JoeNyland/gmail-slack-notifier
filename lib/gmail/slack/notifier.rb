@@ -11,7 +11,7 @@ module Gmail
 
       def initialize(params = {})
         @gmail_client = GmailClient.new
-        @slack_client = SlackClient.new
+        @slack_client = SlackClient.new(params[:slack])
       end
 
       def gmail_client=(client)
