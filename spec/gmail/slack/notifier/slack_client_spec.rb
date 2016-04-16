@@ -4,7 +4,7 @@ describe Gmail::Slack::Notifier::SlackClient do
 
   before do
       expect do
-        @client = Gmail::Slack::Notifier::SlackClient.new
+        @client = Gmail::Slack::Notifier::SlackClient.new({webhook_url:''})
       end.not_to raise_exception
   end
 

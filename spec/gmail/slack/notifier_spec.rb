@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Gmail::Slack::Notifier do
 
   before do
-    @notifier = Gmail::Slack::Notifier.new
+    @notifier = Gmail::Slack::Notifier.new({slack:{webhook_url:''}})
   end
 
   context 'class variables' do
@@ -39,12 +39,12 @@ describe Gmail::Slack::Notifier do
     end
     it 'allows a Slack client to be set' do
       expect do
-        @notifier.slack_client = Gmail::Slack::Notifier::SlackClient.new
+        @notifier.slack_client = Gmail::Slack::Notifier::SlackClient.new({webhook_url:''})
       end.not_to raise_exception
     end
 
     it 'should raise if not provided with a GmailClient' do
-      [{},'',''.to_sym,Gmail::Slack::Notifier::SlackClient.new].each do |item|
+      [{},'',''.to_sym].each do |item|
         expect do
           @notifier.gmail_client = item
         end.to raise_exception Gmail::Slack::Notifier::Exceptions::GmailClient::Error
@@ -52,7 +52,7 @@ describe Gmail::Slack::Notifier do
     end
 
     it 'should raise if not provided with a SlackClient' do
-      [{},'',''.to_sym,Gmail::Slack::Notifier::GmailClient.new].each do |item|
+      [{},'',''.to_sym].each do |item|
         expect do
           @notifier.slack_client = item
         end.to raise_exception Gmail::Slack::Notifier::Exceptions::SlackClient::Error

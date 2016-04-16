@@ -34,6 +34,8 @@ notifier = Gmail::Slack::Notifier.new(
 )
 
 # The main mail detection and notification loop
+
+
 # Gmail.connect!('email','password') do |client|
 #
 #   # We start monitoring for emails from now onwards
