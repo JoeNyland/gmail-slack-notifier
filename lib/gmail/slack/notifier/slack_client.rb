@@ -6,7 +6,7 @@ module Gmail
       class SlackClient < ::Slack::Notifier
 
         def initialize(params)
-          fail if params[:webhook_url].nil?
+          fail 'A Slack webhook URL is required' if params[:webhook_url].nil?
           super params[:webhook_url], channel: params[:channel].nil? ? nil : params[:channel]
         end
 
