@@ -10,9 +10,6 @@ OptionParser.new do |opts|
   opts.on('-w', '--slack-webhook-url SLACK_WEBHOOK_URL', 'Slack webhook URL') do |v|
     options[:slack_webhook_url] = v
   end
-  opts.on('-t', '--slack-target-channel SLACK_TARGET_CHANNEL', 'Slack target channel') do |v|
-    options[:slack_target_channel] = v
-  end
   opts.on('-e', '--gmail-email GMAIL_EMAIL', 'Email address for the Gmail account to login to') do |v|
     options[:gmail_email] = v
   end
@@ -31,8 +28,7 @@ notifier = Gmail::Slack::Notifier.new(
       password: options[:gmail_password]
   },
   slack: {
-      webhook_url: options[:slack_webhook_url],
-      channel: options[:slack_target_channel]
+      webhook_url: options[:slack_webhook_url]
   }
 )
 
@@ -60,7 +56,7 @@ Gmail.connect!(options[:gmail_email],options[:gmail_password]) do |client|
         # mail now contains new mail after the last email that we alerted for and there's at least one
         mail.each do |message|
           # Send a message to Slack!
-          notifier.slack_client.ping(username: options[:slack_target_channel], text: {
+          notifier.slack_client.ping(text: {
               date: message.date,
               from: "#{message.from.first.name} #{message.from.first.mailbox}@#{message.from.first.host}",
               subject: message.subject
