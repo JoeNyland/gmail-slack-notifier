@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# ToDo: Check for mandatory options
 
 require 'optparse'
 require 'gmail/slack/notifier'

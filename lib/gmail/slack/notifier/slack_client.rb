@@ -33,7 +33,7 @@ module Gmail
       class SlackClient < ::Slack::Notifier
 
         def initialize(params)
-          # ToDo: Refactor me!
+          # ToDo: Refactor to throw a suitable exception
           fail 'A Slack webhook URL is required' if params[:webhook_url].nil?
           super params[:webhook_url], channel: params[:channel].nil? ? nil : params[:channel]
         end
