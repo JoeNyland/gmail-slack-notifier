@@ -16,7 +16,7 @@
 #
 class Hash
   def format_as_slack_message
-         # ToDo: Refactor me!
+    # ToDo: Refactor me!
     a = []
     self.each do |k,v|
       a << "#{k.capitalize}: #{v}"
