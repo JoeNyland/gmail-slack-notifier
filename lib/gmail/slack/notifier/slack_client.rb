@@ -11,7 +11,7 @@ module Gmail
         end
 
         def ping(message, options={})
-          message[:text] = message[:text].to_slack_message # ToDo: Refactor to be a bang method
+          message[:text] = message[:text].to_slack_message
           super message, options
         end
 
