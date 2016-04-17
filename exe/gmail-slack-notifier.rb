@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-# ToDo: Check for mandatory options
 
 require 'optparse'
 require 'gmail/slack/notifier'
@@ -23,6 +22,11 @@ OptionParser.new do |opts|
     options[:gmail_poll_interval] = v
   end
 end.parse!
+
+# Check for required options
+%w{slack_webhook_url gmail_email gmail_password}.each do |opt|
+  raise Gmail::Slack::Notifier::Exceptions::ArgumentError, "--#{opt.gsub('_','-')} must be provided" unless options.include? opt.to_sym
+end
 
 # Build a notifier object
 notifier = Gmail::Slack::Notifier.new(
