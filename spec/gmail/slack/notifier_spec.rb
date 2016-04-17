@@ -59,11 +59,6 @@ describe Gmail::Slack::Notifier do
       end
     end
 
-    it 'runs' do
-      # ToDo: Extend tests here
-      expect(@notifier).to respond_to(:run)
-    end
-
   end
 
 end

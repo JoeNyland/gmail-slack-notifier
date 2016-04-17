@@ -22,10 +22,6 @@ module Gmail
         raise Exceptions::SlackClient::Error unless client.is_a? SlackClient
       end
 
-      def run
-        # ToDo: Complete this
-      end
-
     end
   end
 end
