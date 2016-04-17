@@ -1,6 +1,7 @@
 # Gmail::Slack::Notifier
 
 [![Build Status](https://travis-ci.org/MasterRoot24/gmail-slack-notifier.svg?branch=master)](https://travis-ci.org/MasterRoot24/gmail-slack-notifier)
+[![Gem Version](https://badge.fury.io/rb/gmail-slack-notifier.svg)](https://badge.fury.io/rb/gmail-slack-notifier)
 
 Polls your [Gmail][2] mailbox and pings a message in [Slack][3] when you get a new email.
 
