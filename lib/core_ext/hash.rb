@@ -15,12 +15,7 @@
 #   Excerpt: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 #
 class Hash
-  def format_as_slack_message
-    # ToDo: Refactor me!
-    a = []
-    self.each do |k,v|
-      a << "#{k.capitalize}: #{v}"
-    end
-    a.join "\n"
+  def to_slack_message
+    self.map {|k,v| "#{k.capitalize}: #{v}" }.join "\n"
   end
 end
