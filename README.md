@@ -21,10 +21,10 @@ Or install it yourself as:
 ## Usage
 
 ### Command line options
-With the gem installed, you should be able to run `gmail-slack-notifier` with the following options:
+With the gem installed, you should be able to run `gmail-slack-notifier.rb` with the following options:
 
 ```bash
-Usage: gmail-slack-notifier [options]
+Usage: gmail-slack-notifier.rb [options]
 Required:
     -w SLACK_WEBHOOK_URL,            Slack webhook URL
         --slack-webhook-url
@@ -44,7 +44,7 @@ notified of new emails. When complete, copy the Webhook URL that Slack generates
 
 ### Example
 ```bash
-gmail-slack-notifier -e me@gmail.com -p my_super_secure_password_123@gmail.com -w https://hooks.slack.com/services/qwerty/ytrewq/qwertyqwertyqwerty
+gmail-slack-notifier.rb -e me@gmail.com -p my_super_secure_password_123@gmail.com -w https://hooks.slack.com/services/qwerty/ytrewq/qwertyqwertyqwerty
 ```
 
 ## Development
