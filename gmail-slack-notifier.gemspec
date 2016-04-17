@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["joenyland@me.com"]
 
   spec.summary       = "Sends notifications to Slack when Gmail receives an email."
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage      = "https://github.com/MasterRoot24/gmail-slack-notifier"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
