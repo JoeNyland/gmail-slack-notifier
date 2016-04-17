@@ -8,6 +8,7 @@ require 'gmail/slack/notifier'
 options = {}
 ARGV << '-h' if ARGV.empty? # Show the help message if no command line arguments are provided
 OptionParser.new do |opts|
+  opts.separator 'Required:'
   opts.on('-w', '--slack-webhook-url SLACK_WEBHOOK_URL', 'Slack webhook URL') do |v|
     options[:slack_webhook_url] = v
   end
@@ -17,6 +18,7 @@ OptionParser.new do |opts|
   opts.on('-p', '--gmail-password GMAIL_PASSWORD', 'Gmail password') do |v|
     options[:gmail_password] = v
   end
+  opts.separator 'Optional:'
   opts.on('-i', '--gmail-poll-interval GMAIL_POLL_INTERVAL', Integer, 'Gmail poll interval') do |v|
     options[:gmail_poll_interval] = v
   end
