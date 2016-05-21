@@ -4,6 +4,7 @@
 [![Gem Version](https://badge.fury.io/rb/gmail-slack-notifier.svg)](https://badge.fury.io/rb/gmail-slack-notifier)
 [![Code Climate](https://codeclimate.com/github/MasterRoot24/gmail-slack-notifier/badges/gpa.svg)](https://codeclimate.com/github/MasterRoot24/gmail-slack-notifier)
 [![Test Coverage](https://codeclimate.com/github/MasterRoot24/gmail-slack-notifier/badges/coverage.svg)](https://codeclimate.com/github/MasterRoot24/gmail-slack-notifier/coverage)
+[![InchCI](https://inch-ci.org/github/MasterRoot24/gmail-slack-notifier.svg?branch=master)](https://inch-ci.org/github/MasterRoot24/gmail-slack-notifier)
 
 Polls your [Gmail][2] mailbox and pings a message in [Slack][3] when you get a new email.
 
