@@ -50,7 +50,7 @@ notified of new emails. When complete, copy the Webhook URL that Slack generates
 
 ### Example
 ```bash
-gmail-slack-notifier.rb -e me@gmail.com -p my_super_secure_password_123@gmail.com -w https://hooks.slack.com/services/qwerty/ytrewq/qwertyqwertyqwerty
+gmail-slack-notifier.rb -e me@gmail.com -p my_super_secure_password_123 -w https://hooks.slack.com/services/qwerty/ytrewq/qwertyqwertyqwerty
 ```
 
 ## Development
